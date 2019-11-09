@@ -13,24 +13,20 @@ from flask import Flask
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 
+response = requests.get('https://api.chucknorris.io/jokes/random')
 
-def func():
-    
-    response = requests.get('https://api.chucknorris.io/jokes/random')
+responseCode = response.status_code
+responseJoke = response.json()['value']
 
-    responseCode = response.status_code
-    responseJoke = response.json()['value']
-
-    all_freq = {} 
+all_freq = {} 
   
-    for i in responseJoke: 
-        if i in all_freq: 
-            all_freq[i] += 1
-        else: 
-            all_freq[i] = 1
+for i in responseJoke: 
+    if i in all_freq: 
+        all_freq[i] += 1
+    else: 
+        all_freq[i] = 1
+        
 
-    Joke = responseJoke
-    result = str(all_freq)
-    return Joke + ' \n Counts: ' + result
-
-func()
+Joke = responseJoke
+result = str(all_freq)
+print(Joke + ' \n Counts: ' + result)
