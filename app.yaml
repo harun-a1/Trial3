@@ -1,3 +1,2 @@
 runtime: python37
-PORT: 8080
-entrypoint: gunicorn -b :$PORT main:app
+entrypoint: gunicorn -b :$PORT -b :8080 main:app
